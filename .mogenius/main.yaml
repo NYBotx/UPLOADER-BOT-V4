@@ -1,5 +1,5 @@
 serviceType: Deployment
-displayName: Url
+displayName: Nye
 dockerfileName: Dockerfile
 dockerContext: .
 k8sSettings:
@@ -7,7 +7,7 @@ k8sSettings:
   limitMemoryMB: 1024
   ephemeralStorageMB: 1024
   replicaCount: 1
-  deploymentStrategy: rolling
+  deploymentStrategy: recreate
   imagePullPolicy: IfNotPresent
 envVars: []
 ports: []
