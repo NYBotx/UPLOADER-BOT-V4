@@ -1,0 +1,14 @@
+serviceType: Deployment
+displayName: Url
+dockerfileName: Dockerfile
+dockerContext: .
+k8sSettings:
+  limitCpuCores: 2
+  limitMemoryMB: 1024
+  ephemeralStorageMB: 1024
+  replicaCount: 1
+  deploymentStrategy: rolling
+  imagePullPolicy: IfNotPresent
+envVars: []
+ports: []
+
