@@ -1,56 +1,91 @@
+# Don't Remove Credit Tg - @VJ_Botz
+# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
+# Ask Doubt on telegram @KingVJ01
+
 import os
-from os import environ, getenv
+import re
 import logging
 
+# Regex for ID pattern check (optional, retained from original)
+id_pattern = re.compile(r'^.\d+$')
+
+
+def is_enabled(value, default=False):
+    if isinstance(value, str):
+        return value.lower() in ["true", "yes", "1", "enable", "y"]
+    return default
+
+
+# Logger setup
 logging.basicConfig(
     format='%(name)s - %(levelname)s - %(message)s',
-    handlers=[logging.FileHandler('log.txt'),
-              logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler('log.txt'),
+        logging.StreamHandler()
+    ],
     level=logging.INFO
 )
 
+
 class Config(object):
-    
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
-    API_ID = int(os.environ.get("API_ID", ))
-    API_HASH = os.environ.get("API_HASH", "")
-    
-    DOWNLOAD_LOCATION = "./DOWNLOADS"
-    MAX_FILE_SIZE = 2194304000
-    TG_MAX_FILE_SIZE = 2194304000
-    SESSION_STR = ""
-    FREE_USER_MAX_FILE_SIZE = 2194304000
-    CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", 128))
-    DEF_THUMB_NAIL_VID_S = os.environ.get("DEF_THUMB_NAIL_VID_S", "https://placehold.it/90x90")
-    HTTP_PROXY = os.environ.get("HTTP_PROXY", "")
-    
-    OUO_IO_API_KEY = ""
+    # ========== Basic Bot Info ==========
+    BOT_TOKEN = os.getenv("BOT_TOKEN", "your_bot_token_here")
+    BOT_USERNAME = os.getenv("BOT_USERNAME", "Url_Uploader_NY_Bot")
+    API_ID = int(os.getenv("API_ID", "24720215"))
+    API_HASH = os.getenv("API_HASH", "c0d3395590fecba19985f95d6300785e")
+
+    # ========== Downloads ==========
+    DOWNLOAD_LOCATION = os.getenv("DOWNLOAD_LOCATION", "./DOWNLOADS")
+    MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE", 2194304000))
+    TG_MAX_FILE_SIZE = int(os.getenv("TG_MAX_FILE_SIZE", 2194304000))
+    FREE_USER_MAX_FILE_SIZE = int(os.getenv("FREE_USER_MAX_FILE_SIZE", 2194304000))
+    TG_MIN_FILE_SIZE = int(os.getenv("TG_MIN_FILE_SIZE", 2194304000))
+    CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", 128))
+
+    # ========== Thumbnail and Proxy ==========
+    DEF_THUMB_NAIL_VID_S = os.getenv("DEF_THUMB_NAIL_VID_S", "https://placehold.it/90x90")
+    HTTP_PROXY = os.getenv("HTTP_PROXY", "")
+
+    # ========== Limits and Timeout ==========
     MAX_MESSAGE_LENGTH = 4096
-    PROCESS_MAX_TIMEOUT = 3600
-    DEF_WATER_MARK_FILE = "@UploaderXNTBot"
+    PROCESS_MAX_TIMEOUT = int(os.getenv("PROCESS_MAX_TIMEOUT", 3600))
 
-    BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "").split())
+    # ========== MongoDB ==========
+    DATABASE_URL = os.getenv(
+        "DATABASE_URL",
+        "mongodb+srv://Nischay999:Nischay999@cluster0.5kufo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    )
 
-    DATABASE_URL = os.environ.get("DATABASE_URL", "")
+    # ========== Session / Identity ==========
+    SESSION_NAME = os.getenv("SESSION_NAME", "Url_Uploader_NY_Bot")
+    SESSION_STR = os.getenv("SESSION_STR", "")
+    OWNER_ID = int(os.getenv("OWNER_ID", "7910994767"))
 
-    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", ""))
-    LOGGER = logging
-    OWNER_ID = int(os.environ.get("OWNER_ID", ""))
-    SESSION_NAME = "UploaderXNTBot"
-    UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "")
+    # ========== Channels ==========
+    LOG_CHANNEL = int(os.getenv("LOG_CHANNEL", "-1002732334186"))
+    UPDATES_CHANNEL = os.getenv("UPDATES_CHANNEL", "-1002465691872")
+    UPDATE_CHANNEL = os.getenv("UPDATE_CHANNEL", "-1002465691872")
 
-    TG_MIN_FILE_SIZE = 2194304000
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", "")
+    # ========== Shortlink ==========
+    SHORT_DOMAIN = os.getenv("SHORT_DOMAIN", "")
+    SHORT_API = os.getenv("SHORT_API", "")
+    SHORTLINK_ENABLED = is_enabled(os.getenv("SHORTLINK_ENABLED", "false"))
+    TUTORIAL_LINK = os.getenv("TUTORIAL_LINK", "https://t.me/How_To_Open_Linkl")
+
+    # ========== Bot Behavior ==========
+    TRUE_OR_FALSE = is_enabled(os.getenv("TRUE_OR_FALSE", "false"))
     ADL_BOT_RQ = {}
 
-    # Set False off else True
-    TRUE_OR_FALSE = os.environ.get("TRUE_OR_FALSE", "").lower() == "true"
+    # ========== Watermark ==========
+    DEF_WATER_MARK_FILE = "@UploaderXNTBot"
 
-    # Shortlink settings
-    SHORT_DOMAIN = environ.get("SHORT_DOMAIN", "")
-    SHORT_API = environ.get("SHORT_API", "")
+    # ========== Banned Users ==========
+    BANNED_USERS = set(
+        int(x) for x in os.getenv("BANNED_USERS", "").split() if x.strip().isdigit()
+    )
 
-    # Verification video link
-    VERIFICATION = os.environ.get("VERIFICATION", "")
+    # ========== Other Optional ==========
+    MAX_RESULTS = os.getenv("MAX_RESULTS", "50")
 
-    
+    # ========== Logging ==========
+    LOGGER = logging
